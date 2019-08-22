@@ -3,7 +3,7 @@ resource "aws_route_table" "application" {
   vpc_id = "${aws_vpc.main_vpc.id}"
   route {
     cidr_block = "0.0.0.0/0"
-    nat_gateway_id = "${aws_nat_gateway.internet_gateway.*.id[count.index]}"
+    nat_gateway_id = "${aws_nat_gateway.the_nat_gateway.*.id[count.index]}"
   }
   tags = {
     Name = "${var.cluster_name}_application"
