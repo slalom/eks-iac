@@ -2,15 +2,22 @@
 # setup provider for kubernetes
 
 data "external" "aws_iam_authenticator" {
-  program = ["sh", "-c", "aws-iam-authenticator token -i ${var.cluster_name} | jq -r -c .status"]
+  program = ["sh", "-c", "aws-iam-authenticator token -i brightloom | jq -r -c .status"]
 }
 
+data "aws_eks_cluster" "eks_cluster" {
+  name = "${var.cluster_name}-cluster"
+}
+
+data "aws_eks_cluster_auth" "cluster_auth" {
+  name = "${var.cluster_name}-cluster"
+}
 
 provider "kubernetes" {
-  host                      = "${aws_eks_cluster.tf_eks.endpoint}"
-  cluster_ca_certificate    = "${base64decode(aws_eks_cluster.tf_eks.certificate_authority.0.data)}"
-  token                     = "${data.external.aws_iam_authenticator.result.token}"
-  load_config_file          = false
+  host                   = "${data.aws_eks_cluster.eks_cluster.endpoint}"
+  cluster_ca_certificate = "${base64decode(data.aws_eks_cluster.eks_cluster.certificate_authority.0.data)}"
+  token                  = "${data.aws_eks_cluster_auth.cluster_auth.token}"
+  load_config_file       = false
   version = "~> 1.7"
 }
 

@@ -27,6 +27,6 @@ users:
       args:
         - "token"
         - "-i"
-        - "${var.domain_name}"
+        - "${var.cluster_name}"
 KUBECONFIG
 }

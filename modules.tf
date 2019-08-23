@@ -18,9 +18,9 @@ module "eks" {
   domain_name           = "${var.domain_name}"
 
   // inputs from modules
-  vpc_id         = "${module.network.vpc_id}"
-  app_subnet_ids = "${module.network.app_subnet_ids}"
-  gateway_subnet_ids       = "${module.network.gateway_subnet_ids}"
+  vpc_id             = "${module.network.vpc_id}"
+  app_subnet_ids     = "${module.network.app_subnet_ids}"
+  gateway_subnet_ids = "${module.network.gateway_subnet_ids}"
 }
 
 #to be added later.
