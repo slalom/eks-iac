@@ -67,8 +67,15 @@ resource "aws_autoscaling_group" "tf_eks" {
   }
 
   tag {
-    key                 = "kubernetes.io/cluster/eks"
+    key                 = "kubernetes.io/cluster/${var.cluster_name}"
     value               = "owned"
     propagate_at_launch = true
   }
+
+    tag {
+    key                 = "role"
+    value               = "eks-worker"
+    propagate_at_launch = true
+  }
+
 }

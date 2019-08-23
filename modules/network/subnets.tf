@@ -19,7 +19,7 @@ resource "aws_subnet" "application" {
   tags = "${
     map(
      "Name", "${var.cluster_name}_application",
-     "kubernetes.io/cluster/eks", "shared",
+     "kubernetes.io/cluster/${var.cluster_name}", "shared",
     )
   }"
 }
