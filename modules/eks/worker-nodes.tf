@@ -24,14 +24,21 @@ locals {
   tf-eks-node-userdata = <<USERDATA
 #!/bin/bash
 set -o xtrace
+sudo yum install -y https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
+sudo systemctl enable amazon-ssm-agent
+sudo systemctl start amazon-ssm-agent
+sudo systemctl status amazon-ssm-agent
 /etc/eks/bootstrap.sh --apiserver-endpoint '${aws_eks_cluster.tf_eks.endpoint}' --b64-cluster-ca '${aws_eks_cluster.tf_eks.certificate_authority.0.data}' '${var.cluster_name}-cluster'
+sudo systemctl restart kubelet.service
 USERDATA
 }
 
 resource "aws_launch_configuration" "tf_eks" {
   associate_public_ip_address = true
   iam_instance_profile        = "${aws_iam_instance_profile.node.name}"
-  image_id                    = "${data.aws_ami.eks-worker.id}"
+  #image_id                    = "${data.aws_ami.eks-worker.id}"
+  image_id                    = "ami-00b95829322267382"
+  #instance_type               = "m4.large"
   instance_type               = "m4.large"
   name_prefix                 = "terraform-eks"
   security_groups             = ["${aws_security_group.tf-eks-node.id}"]
@@ -67,7 +74,7 @@ resource "aws_autoscaling_group" "tf_eks" {
   }
 
   tag {
-    key                 = "kubernetes.io/cluster/${var.cluster_name}"
+    key                 = "kubernetes.io/cluster/${var.cluster_name}-cluster"
     value               = "owned"
     propagate_at_launch = true
   }

@@ -65,6 +65,23 @@ resource "aws_iam_role_policy_attachment" "tf-eks-node-AmazonEC2ContainerRegistr
   role       = "${aws_iam_role.tf-eks-node.name}"
 }
 
+# These two policies below allow for SSH connections into 
+# the worker nodes via the SSM Session Manager
+# Read: https://aws.amazon.com/blogs/infrastructure-and-automation/toward-a-bastion-less-world/
+ 
+resource "aws_iam_role_policy_attachment" "tf-eks-node-CloudWatchAgentServerPolicy" {
+  policy_arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
+  role       = "${aws_iam_role.tf-eks-node.name}"
+}
+
+# This is to be able to ssh via SSM
+resource "aws_iam_role_policy_attachment" "tf-eks-node-AmazonSSMManagedInstanceCore" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+  role       = "${aws_iam_role.tf-eks-node.name}"
+}
+
+# END SSH SSM Session Manager Policies
+
 resource "aws_iam_instance_profile" "node" {
   name = "terraform-eks-node"
   role = "${aws_iam_role.tf-eks-node.name}"
