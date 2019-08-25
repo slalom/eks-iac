@@ -16,6 +16,8 @@ module "eks" {
   keypair-name          = "${var.keypair-name}"
   cluster_name          = "${var.cluster_name}"
   domain_name           = "${var.domain_name}"
+  ec2_instance_type     = "${var.ec2_instance_type}"
+  ec2_ami_image_id      = "${var.ec2_ami_image_id}"
 
   // inputs from modules
   vpc_id             = "${module.network.vpc_id}"
