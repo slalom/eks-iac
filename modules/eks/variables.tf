@@ -34,3 +34,13 @@ variable "cluster_name" {
 variable "domain_name" {
   type = "string"
 }
+
+variable "ec2_instance_type" {
+  type        = "string"
+  description = "EC2 instance type (t2.small,etc) for the eks worker"
+}
+
+variable "ec2_ami_image_id" {
+  type        = "string"
+  description = "EC2 regional AMI ID for the eks worker"
+}
