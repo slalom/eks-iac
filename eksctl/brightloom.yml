@@ -1,0 +1,24 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: eks-via-cli
+  region: us-west-2
+
+nodeGroups:
+  - name: ng-1-workers
+    labels: { role: workers }
+    instanceType: m4.large
+    desiredCapacity: 2
+    privateNetworking: true
+  - name: ng-2-builders
+    labels: { role: builders }
+    instanceType: m4.large
+    desiredCapacity: 2
+    privateNetworking: true
+    iam:
+      withAddonPolicies:
+        imageBuilder: true
+
+# cluster AZs must be set explicitly for single AZ nodegroup example to work
+availabilityZones: ["us-west-2a", "us-west-2b", "us-west-2c"]
