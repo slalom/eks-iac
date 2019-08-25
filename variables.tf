@@ -48,3 +48,13 @@ variable "domain_name" {
   description = "Name of the domain for R53, certificate and domains"
 }
 
+variable "ec2_instance_type" {
+  type        = "string"
+  description = "EC2 instance type (t2.small,etc) for the eks worker"
+  default     = "m4.large"
+}
+
+variable "ec2_ami_image_id" {
+  type        = "string"
+  description = "EC2 regional AMI ID for the eks worker"
+}
