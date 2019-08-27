@@ -5,25 +5,49 @@ module "network" {
   aws_region   = "${var.aws_region}"
   subnet_count = "${var.subnet_count}"
   cluster_name = "${var.cluster_name}"
+  cidr_block   = "${var.cidr_block}"
 }
 
-module "eks" {
-  source = "./modules/eks"
+# module "eks" {
+#   source = "./modules/eks"
 
-  // pass variables from .tfvars
-  accessing_computer_ip = "${var.accessing_computer_ip}"
-  aws_region            = "${var.aws_region}"
-  keypair-name          = "${var.keypair-name}"
-  cluster_name          = "${var.cluster_name}"
-  domain_name           = "${var.domain_name}"
-  ec2_instance_type     = "${var.ec2_instance_type}"
-  ec2_ami_image_id      = "${var.ec2_ami_image_id}"
+#   // pass variables from .tfvars
+#   accessing_computer_ip = "${var.accessing_computer_ip}"
+#   aws_region            = "${var.aws_region}"
+#   keypair-name          = "${var.keypair-name}"
+#   cluster_name          = "${var.cluster_name}"
+#   domain_name           = "${var.domain_name}"
+#   ec2_instance_type     = "${var.ec2_instance_type}"
+#   ec2_ami_image_id      = "${var.ec2_ami_image_id}"
+
+#   // inputs from modules
+#   vpc_id             = "${module.network.vpc_id}"
+#   app_subnet_ids     = "${module.network.app_subnet_ids}"
+#   gateway_subnet_ids = "${module.network.gateway_subnet_ids}"
+# }
+
+module "db" {
+  source = "./modules/db"
+
+  //pass variables
+  # Aurora variables
+  aurora_db_engine                       = "${var.aurora_db_engine}"
+  aurora_db_name                         = "${var.cluster_name}"
+  aurora_db_backup_retention_period      = "${var.aurora_db_backup_retention_period}"
+  aurora_db_preferred_backup_window      = "${var.aurora_db_preferred_backup_window}"
+  aurora_db_preferred_maintenance_window = "${var.aurora_db_preferred_maintenance_window}"
+  aurora_db_port                         = "${var.aurora_db_port}"
+  aurora_db_az_zones                     = "${var.aurora_db_az_zones}"
+  cluster_name                           = "${var.cluster_name}"
 
   // inputs from modules
-  vpc_id             = "${module.network.vpc_id}"
-  app_subnet_ids     = "${module.network.app_subnet_ids}"
-  gateway_subnet_ids = "${module.network.gateway_subnet_ids}"
+  vpc_id         = "${module.network.vpc_id}"
+  cidr_block     = "${var.cidr_block}"
+  app_subnet_ids = "${module.network.app_subnet_ids}"
+  app_cidr_block = "${module.network.app_cidr_block}"
+  rds_subnet_ids = "${module.network.database_subnet_ids}"
 }
+
 
 #to be added later.
 # module "alb" {
