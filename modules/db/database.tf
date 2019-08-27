@@ -22,12 +22,14 @@ resource "aws_rds_cluster" "brightloom_db_cluster" {
   final_snapshot_identifier = "${var.cluster_name}-cluster-backup"
 }
 
+# Engine has to match below. to one in cluster
 resource "aws_rds_cluster_instance" "rds_instance" {
   count                = 2
   identifier           = "instance-0${count.index + 1}"
   cluster_identifier   = "${aws_rds_cluster.brightloom_db_cluster.id}"
   instance_class       = "db.r4.large"
   db_subnet_group_name = "${aws_db_subnet_group.rds_subnet_group.name}"
+  engine = "${var.aurora_db_engine}"
 }
 
 resource "aws_db_subnet_group" "rds_subnet_group" {
