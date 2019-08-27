@@ -11,6 +11,8 @@ resource "aws_subnet" "gateway" {
     )
   }"
 }
+
+# kubernetes will run on the application subnet
 resource "aws_subnet" "application" {
   count = "${var.subnet_count}"
   availability_zone = "${data.aws_availability_zones.available.names[count.index]}"
@@ -24,6 +26,7 @@ resource "aws_subnet" "application" {
   }"
 }
 
+# RDS / data will run in database.
 resource "aws_subnet" "database" {
   count = "${var.subnet_count}"
   availability_zone = "${data.aws_availability_zones.available.names[count.index]}"
