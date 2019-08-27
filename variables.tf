@@ -38,6 +38,7 @@ variable "hosted_zone_url" {
   description = "URL of the hosted Zone created in Route53 before Terraform deployment."
 }
 
+# cluster_name will be given to EKS and Aurora_Cluster
 variable "cluster_name" {
   type        = "string"
   description = "Name of the cluster - will be used to name and tag resources"
@@ -58,3 +59,54 @@ variable "ec2_ami_image_id" {
   type        = "string"
   description = "EC2 regional AMI ID for the eks worker"
 }
+
+# Aurora variables
+variable "aurora_db_engine" {
+  type        = "string"
+  description = "ex: aurora, aurora-mysql, aurora-postgresql"
+}
+
+variable "aurora_db_az_zones" {
+  type        = "string"
+  description = "ex: us-west-2a, us-west-2b, us-west-2c"
+}
+
+variable "aurora_db_backup_retention_period" {
+  type        = number
+  default     = 1
+  description = "1 through 35"
+}
+
+variable "aurora_db_preferred_backup_window" {
+  type        = "string"
+  description = "ex: 07:00-09:00"
+}
+
+variable "aurora_db_preferred_maintenance_window" {
+  type        = "string"
+  description = "The weekly time range during which system maintenance can occur, in (UTC) e.g. wed:04:00-wed:04:30"
+}
+
+variable "aurora_db_port" {
+  type        = number
+  default     = 5432
+  description = "The port on which the DB accepts connections (ex: 3306 for MySQL, 5432 for PostgreSQL)"
+}
+
+variable "cidr_block" {
+  type        = "string"
+  description = "VPC cidr_block"
+}
+
+
+/*
+copy_tags_to_snapshot – (Optional, boolean)
+
+deletion_protection - (Op
+final_snapshot_identifier - (Optional) The name of your final DB snapshot when this DB cluster is deleted. If omitted, no final snapshot will be made.
+port - (O
+storage_encrypted - (Optional) Specifies whether the DB cluster is encrypted. The default is false for provisioned engine_mode and true for serverless engine_mode.
+kms_key_id - (Optional) The ARN for the KMS encryption key. When specifying kms_key_id, storage_encrypted needs to be set to true.
+enabled_cloudwatch_logs_exports - (Optional) List of log types to export to cloudwatch. If omitted, no logs will be exported. The following log types are supported: audit, error, general, slowquery, postgresql (PostgreSQL).
+
+*/
