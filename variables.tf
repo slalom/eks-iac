@@ -66,6 +66,11 @@ variable "aurora_db_engine" {
   description = "ex: aurora, aurora-mysql, aurora-postgresql"
 }
 
+variable "aurora_db_instance_class" {
+  type        = "string"
+  description = "ex: db.r4.large"
+}
+
 variable "aurora_db_backup_retention_period" {
   default     = 1
   description = "1 through 35"
@@ -98,7 +103,6 @@ variable "cidr_block" {
   type        = "string"
   description = "VPC cidr_block"
 }
-########
 
 variable "copy_tags_to_snapshot" {
   description = "Copy all Cluster tags to snapshots. Default is false."

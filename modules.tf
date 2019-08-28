@@ -36,6 +36,7 @@ module "db" {
   aurora_db_backup_retention_period      = "${var.aurora_db_backup_retention_period}"
   aurora_db_preferred_backup_window      = "${var.aurora_db_preferred_backup_window}"
   aurora_db_preferred_maintenance_window = "${var.aurora_db_preferred_maintenance_window}"
+  aurora_db_instance_class               = "${var.aurora_db_instance_class}"
   aurora_db_port                         = "${var.aurora_db_port}"
   cluster_name                           = "${var.cluster_name}"
   cluster_master_username                = "${var.cluster_master_username}"

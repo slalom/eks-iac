@@ -34,7 +34,7 @@ resource "aws_rds_cluster_instance" "rds_instance" {
   count                = 2
   identifier           = "instance-0${count.index + 1}"
   cluster_identifier   = "${aws_rds_cluster.brightloom_db_cluster.id}"
-  instance_class       = "db.r4.large"
+  instance_class       = "${var.aurora_db_instance_class}"
   db_subnet_group_name = "${aws_db_subnet_group.rds_subnet_group.name}"
   engine = "${var.aurora_db_engine}"
 

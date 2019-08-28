@@ -12,6 +12,11 @@ variable "aurora_db_engine" {
   description = "Either aurora-postgresql or aurora-mysql"
 }
 
+variable "aurora_db_instance_class" {
+  type        = "string"
+  description = "ex: db.r4.large"
+}
+
 variable "aurora_db_name" {
   type        = "string"
   description = "database name"

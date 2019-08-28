@@ -28,6 +28,7 @@ Then run `kubectl get svc` and you will see your cluster.
 # Open Questions:
 Should the RDS aurora cluster have a final_snapshot? Right now defaults to YES by setting skip_final_snapshot = false
 Should the RDS aurora cluster DB have delete protection enabled?
+Should RDS have Enable IAM DB authentication? How will end-users, services, etc authenticate against db?
 
 # Sample terraform.tfvars
 ## Create terraform.tfvars in your root folder with these variables
