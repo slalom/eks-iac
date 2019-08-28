@@ -25,11 +25,11 @@ locals {
 #!/bin/bash
 set -o xtrace
 sudo yum install -y https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
-sudo systemctl enable amazon-ssm-agent
-sudo systemctl start amazon-ssm-agent
-sudo systemctl status amazon-ssm-agent
+systemctl enable amazon-ssm-agent
+systemctl restart amazon-ssm-agent
+systemctl status amazon-ssm-agent
 /etc/eks/bootstrap.sh --apiserver-endpoint '${aws_eks_cluster.tf_eks.endpoint}' --b64-cluster-ca '${aws_eks_cluster.tf_eks.certificate_authority.0.data}' '${var.cluster_name}-cluster'
-sudo systemctl restart kubelet.service
+systemctl restart kubelet.service
 USERDATA
 }
 

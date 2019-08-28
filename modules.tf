@@ -8,23 +8,23 @@ module "network" {
   cidr_block   = "${var.cidr_block}"
 }
 
-# module "eks" {
-#   source = "./modules/eks"
+module "eks" {
+  source = "./modules/eks"
 
-#   // pass variables from .tfvars
-#   accessing_computer_ip = "${var.accessing_computer_ip}"
-#   aws_region            = "${var.aws_region}"
-#   keypair-name          = "${var.keypair-name}"
-#   cluster_name          = "${var.cluster_name}"
-#   domain_name           = "${var.domain_name}"
-#   ec2_instance_type     = "${var.ec2_instance_type}"
-#   ec2_ami_image_id      = "${var.ec2_ami_image_id}"
+  // pass variables from .tfvars
+  accessing_computer_ip = "${var.accessing_computer_ip}"
+  aws_region            = "${var.aws_region}"
+  keypair-name          = "${var.keypair-name}"
+  cluster_name          = "${var.cluster_name}"
+  domain_name           = "${var.domain_name}"
+  ec2_instance_type     = "${var.ec2_instance_type}"
+  ec2_ami_image_id      = "${var.ec2_ami_image_id}"
 
-#   // inputs from modules
-#   vpc_id             = "${module.network.vpc_id}"
-#   app_subnet_ids     = "${module.network.app_subnet_ids}"
-#   gateway_subnet_ids = "${module.network.gateway_subnet_ids}"
-# }
+  // inputs from modules
+  vpc_id             = "${module.network.vpc_id}"
+  app_subnet_ids     = "${module.network.app_subnet_ids}"
+  gateway_subnet_ids = "${module.network.gateway_subnet_ids}"
+}
 
 module "db" {
   source = "./modules/db"

@@ -25,6 +25,10 @@ kubectl config use-context context-name
 
 Then run `kubectl get svc` and you will see your cluster.
 
+# Terminate SSH Session
+In the SSM Sessions Manager History, get the session-id of the session that seems to be in an eternal "terminating state". Then run.
+aws ssm terminate-session --session-id session-id
+
 # Open Questions:
 Should the RDS aurora cluster have a final_snapshot? Right now defaults to YES by setting skip_final_snapshot = false
 Should the RDS aurora cluster DB have delete protection enabled?
