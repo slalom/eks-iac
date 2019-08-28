@@ -20,6 +20,10 @@ resource "aws_rds_cluster" "brightloom_db_cluster" {
   master_password        = "${var.cluster_master_password}"
   skip_final_snapshot  = false
   final_snapshot_identifier = "${var.cluster_name}-cluster-backup"
+  
+  tags = {
+    Name = "${var.aurora_db_name}"
+  }
 }
 
 # Engine has to match below. to one in cluster
@@ -30,6 +34,10 @@ resource "aws_rds_cluster_instance" "rds_instance" {
   instance_class       = "db.r4.large"
   db_subnet_group_name = "${aws_db_subnet_group.rds_subnet_group.name}"
   engine = "${var.aurora_db_engine}"
+
+  tags = {
+    Name = "${var.aurora_db_name}"
+  }
 }
 
 #the aws_db_subnet_group defines the AZs for the cluster
@@ -47,6 +55,10 @@ resource "aws_security_group" "rds" {
   name        = "rds-sg"
   description = "Allow database traffic to rds"
   vpc_id      = "${var.vpc_id}"
+
+  tags = {
+    Name = "${var.aurora_db_name}"
+  }
 }
 
 resource "aws_security_group_rule" "eks_to_rds" {
