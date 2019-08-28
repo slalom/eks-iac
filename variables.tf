@@ -66,11 +66,6 @@ variable "aurora_db_engine" {
   description = "ex: aurora, aurora-mysql, aurora-postgresql"
 }
 
-variable "aurora_db_az_zones" {
-  type        = "string"
-  description = "ex: us-west-2a, us-west-2b, us-west-2c"
-}
-
 variable "aurora_db_backup_retention_period" {
   default     = 1
   description = "1 through 35"
@@ -103,16 +98,21 @@ variable "cidr_block" {
   type        = "string"
   description = "VPC cidr_block"
 }
+########
 
+variable "copy_tags_to_snapshot" {
+  description = "Copy all Cluster tags to snapshots. Default is false."
+}
 
-/*
-copy_tags_to_snapshot – (Optional, boolean)
+variable "deletion_protection" {
+  description = "If the DB instance should have deletion protection enabled. The database can't be deleted when this value is set to true. The default is false."
+}
 
-deletion_protection - (Op
-final_snapshot_identifier - (Optional) The name of your final DB snapshot when this DB cluster is deleted. If omitted, no final snapshot will be made.
-port - (O
-storage_encrypted - (Optional) Specifies whether the DB cluster is encrypted. The default is false for provisioned engine_mode and true for serverless engine_mode.
-kms_key_id - (Optional) The ARN for the KMS encryption key. When specifying kms_key_id, storage_encrypted needs to be set to true.
-enabled_cloudwatch_logs_exports - (Optional) List of log types to export to cloudwatch. If omitted, no logs will be exported. The following log types are supported: audit, error, general, slowquery, postgresql (PostgreSQL).
+variable "storage_encrypted" {
+  description = "Specifies whether the DB cluster is encrypted. The default is false for provisioned engine_mode and true for serverless engine_mode."
+}
 
-*/
+variable "kms_key_id" {
+  type        = "string"
+  description = "The ARN for the KMS encryption key. When specifying kms_key_id, storage_encrypted needs to be set to true."
+}

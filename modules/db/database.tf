@@ -9,7 +9,6 @@ data "aws_availability_zones" "available" {}
 resource "aws_rds_cluster" "brightloom_db_cluster" {
   cluster_identifier      = "${var.cluster_name}"
   engine                  = "${var.aurora_db_engine}"
-  #availability_zones      = ["us-west-2a", "us-west-2b"]  # This is not required as it is determine by the RDS aws_dbs_subnet_group
   database_name           = "${var.aurora_db_name}"
   backup_retention_period = "${var.aurora_db_backup_retention_period}"
   preferred_backup_window = "${var.aurora_db_preferred_backup_window}"
@@ -20,6 +19,10 @@ resource "aws_rds_cluster" "brightloom_db_cluster" {
   master_password        = "${var.cluster_master_password}"
   skip_final_snapshot  = false
   final_snapshot_identifier = "${var.cluster_name}-cluster-backup"
+  copy_tags_to_snapshot = "${var.copy_tags_to_snapshot}"
+  deletion_protection =  "${var.deletion_protection}"
+  storage_encrypted =  "${var.storage_encrypted}"
+  kms_key_id =  "${var.kms_key_id}"
   
   tags = {
     Name = "${var.aurora_db_name}"

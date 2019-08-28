@@ -12,11 +12,6 @@ variable "aurora_db_engine" {
   description = "Either aurora-postgresql or aurora-mysql"
 }
 
-variable "aurora_db_az_zones" {
-  type        = "string"
-  description = "ex: us-west-2a, us-west-2b, us-west-2c"
-}
-
 variable "aurora_db_name" {
   type        = "string"
   description = "database name"
@@ -67,4 +62,21 @@ variable "cluster_master_username" {
 }
 variable "cluster_master_password" {
   type = "string"
+}
+
+variable "copy_tags_to_snapshot" {
+  description = "Copy all Cluster tags to snapshots. Default is false."
+}
+
+variable "deletion_protection" {
+  description = "If the DB instance should have deletion protection enabled. The database can't be deleted when this value is set to true. The default is false."
+}
+
+variable "storage_encrypted" {
+  description = "Specifies whether the DB cluster is encrypted. The default is false for provisioned engine_mode and true for serverless engine_mode."
+}
+
+variable "kms_key_id" {
+  type        = "string"
+  description = "The ARN for the KMS encryption key. When specifying kms_key_id, storage_encrypted needs to be set to true."
 }

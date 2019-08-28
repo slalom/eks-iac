@@ -37,10 +37,14 @@ module "db" {
   aurora_db_preferred_backup_window      = "${var.aurora_db_preferred_backup_window}"
   aurora_db_preferred_maintenance_window = "${var.aurora_db_preferred_maintenance_window}"
   aurora_db_port                         = "${var.aurora_db_port}"
-  aurora_db_az_zones                     = "${var.aurora_db_az_zones}"
   cluster_name                           = "${var.cluster_name}"
   cluster_master_username                = "${var.cluster_master_username}"
   cluster_master_password                = "${var.cluster_master_password}"
+
+  copy_tags_to_snapshot = "${var.copy_tags_to_snapshot}"
+  deletion_protection   = "${var.deletion_protection}"
+  storage_encrypted     = "${var.storage_encrypted}"
+  kms_key_id            = "${var.kms_key_id}"
 
   // inputs from modules
   vpc_id         = "${module.network.vpc_id}"
