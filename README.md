@@ -13,3 +13,6 @@ aws eks --region region update-kubeconfig --name cluster_name
 ### To Swtich Context
 kubectl config use-context context-name
 
+# Open Questions:
+Should the RDS aurora cluster have a final_snapshot? Right now defaults to YES by setting skip_final_snapshot = false
+Should the RDS aurora cluster DB have delete protection enabled?
