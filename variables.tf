@@ -72,7 +72,6 @@ variable "aurora_db_az_zones" {
 }
 
 variable "aurora_db_backup_retention_period" {
-  type        = number
   default     = 1
   description = "1 through 35"
 }
@@ -88,9 +87,16 @@ variable "aurora_db_preferred_maintenance_window" {
 }
 
 variable "aurora_db_port" {
-  type        = number
   default     = 5432
   description = "The port on which the DB accepts connections (ex: 3306 for MySQL, 5432 for PostgreSQL)"
+}
+
+
+variable "cluster_master_username" {
+  type = "string"
+}
+variable "cluster_master_password" {
+  type = "string"
 }
 
 variable "cidr_block" {

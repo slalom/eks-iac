@@ -39,6 +39,8 @@ module "db" {
   aurora_db_port                         = "${var.aurora_db_port}"
   aurora_db_az_zones                     = "${var.aurora_db_az_zones}"
   cluster_name                           = "${var.cluster_name}"
+  cluster_master_username                = "${var.cluster_master_username}"
+  cluster_master_password                = "${var.cluster_master_password}"
 
   // inputs from modules
   vpc_id         = "${module.network.vpc_id}"

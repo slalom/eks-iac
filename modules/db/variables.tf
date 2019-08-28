@@ -23,7 +23,6 @@ variable "aurora_db_name" {
 }
 
 variable "aurora_db_backup_retention_period" {
-  type        = number
   description = "1 through 35"
 }
 
@@ -38,7 +37,6 @@ variable "aurora_db_preferred_maintenance_window" {
 }
 
 variable "aurora_db_port" {
-  type = number
   description = "The port on which the DB accepts connections (ex: 3306 for MySQL, 5432 for PostgreSQL)"
 }
 
@@ -64,5 +62,9 @@ variable "rds_subnet_ids" {
   type = "list"
 }
 
-
-
+variable "cluster_master_username" {
+  type = "string"
+}
+variable "cluster_master_password" {
+  type = "string"
+}
