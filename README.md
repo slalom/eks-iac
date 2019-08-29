@@ -58,6 +58,8 @@ Should the RDS aurora cluster have a final_snapshot? Right now is set to YES by 
 Should the RDS aurora cluster DB have delete protection enabled? Right now is set to yes
 Should the RDS aurora cluster DB have encryption enabled? Right now is set to yes
 Should RDS have Enable IAM DB authentication? How will end-users, services, etc authenticate against db?
+Look into AutoScaling Configuration for autoscale policy - what should it be?
+What type of logging should there be in the solution as a whole for EKS, RDS, etc?
 
 # Sample terraform.tfvars
 ## Create terraform.tfvars in your root folder with these variables
