@@ -25,6 +25,17 @@ kubectl config use-context context-name
 
 Then run `kubectl get svc` and you will see your cluster.
 
+## Wiring up Worker Node Access
+Currently Terraform doesn't have a built-in way of joining the worker nodes. There is a proposed way to do it via the kubernetes provider which is implemented but it usually times out.  When it times out, you can run terraform apply again and it works the second time.
+
+### Terraform's official Doc on Nodes Joining
+Run 
+1. terraform output config_map_aws_auth >nodes_aws_auth.yml
+2. kubectl apply -f nodes_aws_auth.yaml
+3. kubectl get nodes --watch
+
+You'll see the nodes come online
+
 # Terminate SSH Session
 In the SSM Sessions Manager History, get the session-id of the session that seems to be in an eternal "terminating state". Then run.
 aws ssm terminate-session --session-id session-id
