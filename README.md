@@ -91,4 +91,7 @@ copy_tags_to_snapshot   = true
 deletion_protection     = true
 storage_encrypted       = true
 kms_key_id              = "arn:aws:kms:_some_region_:_some_aws_account_:key/_the_arn_for_key"
+eks_nodes_desired_capacity = 2
+eks_nodes_maximum          = 3
+eks_nodes_minimum          = 1
 ```
