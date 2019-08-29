@@ -120,3 +120,15 @@ variable "kms_key_id" {
   type        = "string"
   description = "The ARN for the KMS encryption key. When specifying kms_key_id, storage_encrypted needs to be set to true."
 }
+
+variable "eks_nodes_desired_capacity" {
+  description = "This is the desired autoscaling group desired capacity of worker nodes to start with"
+}
+
+variable "eks_nodes_maximum" {
+  description = "This is the desired autoscaling group maximum number of worker nodes"
+}
+
+variable "eks_nodes_minimum" {
+  description = "This is the desired autoscaling group minimum number of worker nodes"
+}

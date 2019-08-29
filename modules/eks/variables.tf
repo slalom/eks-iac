@@ -44,3 +44,15 @@ variable "ec2_ami_image_id" {
   type        = "string"
   description = "EC2 regional AMI ID for the eks worker"
 }
+
+variable "eks_nodes_desired_capacity" {
+  description = "This is the desired autoscaling group desired capacity of worker nodes to start with"
+}
+
+variable "eks_nodes_maximum" {
+  description = "This is the desired autoscaling group max capacity of worker nodes"
+}
+
+variable "eks_nodes_minimum" {
+  description = "This is the desired autoscaling group minimum number of worker nodes"
+}

@@ -59,10 +59,10 @@ resource "aws_lb_target_group" "tf_eks" {
 }
 
 resource "aws_autoscaling_group" "tf_eks" {
-  desired_capacity     = "2"
+  desired_capacity     = "${var.eks_nodes_desired_capacity}"
   launch_configuration = "${aws_launch_configuration.tf_eks.id}"
-  max_size             = "3"
-  min_size             = 1
+  max_size             = "${var.eks_nodes_maximum}"
+  min_size             = "${var.eks_nodes_minimum}"
   name                 = "terraform-tf-eks"
   vpc_zone_identifier  = "${var.app_subnet_ids}"
   target_group_arns    = ["${aws_lb_target_group.tf_eks.arn}"]
