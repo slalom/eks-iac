@@ -12,13 +12,16 @@ module "eks" {
   source = "./modules/eks"
 
   // pass variables from .tfvars
-  accessing_computer_ip = "${var.accessing_computer_ip}"
-  aws_region            = "${var.aws_region}"
-  keypair-name          = "${var.keypair-name}"
-  cluster_name          = "${var.cluster_name}"
-  domain_name           = "${var.domain_name}"
-  ec2_instance_type     = "${var.ec2_instance_type}"
-  ec2_ami_image_id      = "${var.ec2_ami_image_id}"
+  accessing_computer_ip      = "${var.accessing_computer_ip}"
+  aws_region                 = "${var.aws_region}"
+  keypair-name               = "${var.keypair-name}"
+  cluster_name               = "${var.cluster_name}"
+  domain_name                = "${var.domain_name}"
+  ec2_instance_type          = "${var.ec2_instance_type}"
+  ec2_ami_image_id           = "${var.ec2_ami_image_id}"
+  eks_nodes_desired_capacity = "${var.eks_nodes_desired_capacity}"
+  eks_nodes_maximum          = "${var.eks_nodes_maximum}"
+  eks_nodes_minimum          = "${var.eks_nodes_minimum}"
 
   // inputs from modules
   vpc_id             = "${module.network.vpc_id}"
