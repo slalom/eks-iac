@@ -37,7 +37,7 @@ Currently Terraform doesn't have a built-in way of joining the worker nodes. The
 ### Terraform's official Doc on Nodes Joining
 Run 
 1. terraform output config_map_aws_auth >nodes_aws_auth.yml
-2. kubectl apply -f nodes_aws_auth.yaml
+2. kubectl apply -f nodes_aws_auth.yml
 3. kubectl get nodes --watch
 
 You'll see the nodes come online
