@@ -2,10 +2,12 @@ module "network" {
   source = "./modules/network"
 
   // pass variables from .tfvars
-  aws_region   = "${var.aws_region}"
-  subnet_count = "${var.subnet_count}"
-  cluster_name = "${var.cluster_name}"
-  cidr_block   = "${var.cidr_block}"
+  aws_region          = "${var.aws_region}"
+  cluster_name        = "${var.cluster_name}"
+  vpc_cidr_block      = "${var.vpc_cidr_block}"
+  gateway_subnets     = "${var.gateway_subnets}"
+  application_subnets = "${var.application_subnets}"
+  database_subnets    = "${var.database_subnets}"
 }
 
 module "eks" {
@@ -52,7 +54,7 @@ module "db" {
 
   // inputs from modules
   vpc_id         = "${module.network.vpc_id}"
-  cidr_block     = "${var.cidr_block}"
+  cidr_block     = "${var.vpc_cidr_block}"
   app_subnet_ids = "${module.network.app_subnet_ids}"
   app_cidr_block = "${module.network.app_cidr_block}"
   rds_subnet_ids = "${module.network.database_subnet_ids}"

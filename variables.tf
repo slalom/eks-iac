@@ -13,11 +13,6 @@ variable "aws_secret_key" {
   description = "The secret key used by your terraform client to access AWS."
 }
 
-variable "subnet_count" {
-  type        = "string"
-  description = "The number of subnets we want to create per type to ensure high availability."
-}
-
 variable "accessing_computer_ip" {
   type        = "string"
   description = "IP of the computer to be allowed to connect to EKS master and nodes."
@@ -99,9 +94,28 @@ variable "cluster_master_password" {
   type = "string"
 }
 
-variable "cidr_block" {
+variable "vpc_cidr_block" {
   type        = "string"
   description = "VPC cidr_block"
+}
+
+#  KEEP the number of subnets the same. 2 gateway subnet and 2 subnets for app and db.
+#   Automation uses the # of subnets to assign various resources which will fail if
+#     ONE subnet has 2 cirds and another subnet has 3 cdir block ranges
+variable "gateway_subnets" {
+  type        = "list"
+  description = "A map of cidr block ranges for the subnets in the gateway subnet"
+}
+
+
+variable "application_subnets" {
+  type        = "list"
+  description = "A map of cidr block ranges for the subnets in the application subnet"
+}
+
+variable "database_subnets" {
+  type        = "list"
+  description = "A map of cidr block ranges for the subnets in the database subnet"
 }
 
 variable "copy_tags_to_snapshot" {

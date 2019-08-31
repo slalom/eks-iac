@@ -1,9 +1,9 @@
 data "aws_availability_zones" "available" {}
 
 resource "aws_subnet" "gateway" {
-  count = "${var.subnet_count}"
+  count = "${length(var.gateway_subnets)}"
   availability_zone = "${data.aws_availability_zones.available.names[count.index]}"
-  cidr_block        = "10.0.1${count.index}.0/24"
+  cidr_block        = "${element(var.gateway_subnets, count.index)}"
   vpc_id            = "${aws_vpc.main_vpc.id}"
   tags = "${
     map(
@@ -12,11 +12,12 @@ resource "aws_subnet" "gateway" {
   }"
 }
 
+
 # kubernetes will run on the application subnet
 resource "aws_subnet" "application" {
-  count = "${var.subnet_count}"
+  count = "${length(var.application_subnets)}"
   availability_zone = "${data.aws_availability_zones.available.names[count.index]}"
-  cidr_block        = "10.0.2${count.index}.0/24"
+  cidr_block        = "${element(var.application_subnets, count.index)}"
   vpc_id            = "${aws_vpc.main_vpc.id}"
   tags = "${
     map(
@@ -28,9 +29,9 @@ resource "aws_subnet" "application" {
 
 # RDS / data will run in database.
 resource "aws_subnet" "database" {
-  count = "${var.subnet_count}"
+  count = "${length(var.database_subnets)}"
   availability_zone = "${data.aws_availability_zones.available.names[count.index]}"
-  cidr_block        = "10.0.3${count.index}.0/24"
+  cidr_block        = "${element(var.database_subnets, count.index)}"
   vpc_id            = "${aws_vpc.main_vpc.id}"
   
   tags = "${
