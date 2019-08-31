@@ -47,25 +47,39 @@ In order to manage and troubleshoot issues with the EKS worker nodes, a bastion 
 
 The EKS worker nodes have been configured with the SSM manager. But they take about 10 minutes to be available in SSM manager. 
 
+### Instances must be have an `Association Status` of `Success`
+Under Session Manager's Managed Instances, you can see a list of the EKS nodes.  
+Scroll to the right and you'll see the Association Status. It must be `Success` or SSH sessions will fail.  
+
+### Orphan Sessions - must be terminated
 Sometimes you will forget to close your SSH session and it will be orphaned. You'll need to use the CLI to terminate the session.
 
 ### Terminate SSH Session
-In the SSM Sessions Manager History, get the session-id of the session that seems to be in an eternal "terminating state". Then run.
-aws ssm terminate-session --session-id session-id
+In the SSM Sessions Manager History, get the session-id of the session that seems to be in an eternal "terminating state". Then run.  
+`aws ssm terminate-session --session-id session-id`
 
 # Open Questions:
-Should the RDS aurora cluster have a final_snapshot? Right now is set to YES by setting skip_final_snapshot = false
-Should the RDS aurora cluster DB have delete protection enabled? Right now is set to yes
-Should the RDS aurora cluster DB have encryption enabled? Right now is set to yes
-Should RDS have Enable IAM DB authentication? How will end-users, services, etc authenticate against db?
-Look into AutoScaling Configuration for autoscale policy - what should it be?
-What type of logging should there be in the solution as a whole for EKS, RDS, etc?
+Should the RDS aurora cluster have a final_snapshot? Right now is set to YES by setting skip_final_snapshot = false  
+Should the RDS aurora cluster DB have delete protection enabled? Right now is set to yes  
+Should the RDS aurora cluster DB have encryption enabled? Right now is set to yes  
+Should RDS have Enable IAM DB authentication? How will end-users, services, etc authenticate against db?  
+Look into AutoScaling Configuration for autoscale policy - what should it be?  
+What type of logging should there be in the solution as a whole for EKS, RDS, etc?  
 
 # Sample terraform.tfvars
 ## Create terraform.tfvars in your root folder with these variables
 ```
 aws_region            = "us-west-2"
-cidr_block            = "10.0.0.0/16"
+vpc_cidr_block = "10.0.0.0/16"
+```
+The number of subnet cidrs must be equal across the gateway, application and database subnet.  
+the gateway subnet cannot have more cidrs than the others and vice-versa  
+Many resources are driven by the number of cidrs in the list/array.  
+REMOVE THIS SECTION when copying and pasting into your variables file.
+```
+gateway_subnets     = ["10.0.10.0/24", "10.0.11.0/24"]
+application_subnets = ["10.0.20.0/24", "10.0.21.0/24"]
+database_subnets    = ["10.0.30.0/24", "10.0.31.0/24"]
 aws_access_key        = " your access key"
 aws_secret_key        = " your secret key "
 subnet_count          = "2"
