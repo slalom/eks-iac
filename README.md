@@ -65,6 +65,10 @@ Should the RDS aurora cluster DB have encryption enabled? Right now is set to ye
 Should RDS have Enable IAM DB authentication? How will end-users, services, etc authenticate against db?  
 Look into AutoScaling Configuration for autoscale policy - what should it be?  
 What type of logging should there be in the solution as a whole for EKS, RDS, etc?  
+What type of IAM Role permissions will the actual POD based workloads need? They will need their own roles or permissions added to the role running the EKS worker nodes  
+Should the EKS Worker EBS volumes be encrypted?  
+Should the EKS Cluster Endpoint be private or public?  
+
 
 # Sample terraform.tfvars
 ## Create terraform.tfvars in your root folder with these variables
