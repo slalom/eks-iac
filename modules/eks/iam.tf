@@ -1,6 +1,9 @@
+data "aws_region" "current" {}
+
 # Setup for IAM role needed to setup an EKS cluster
 resource "aws_iam_role" "tf-eks-master" {
-  name = "terraform-eks-cluster"
+  name = "${var.cluster_name}-eks-master-cluster"
+  description = "This is the role assign to the cluster to the console/AWS and k8s CLI"
 
   assume_role_policy = <<POLICY
 {
@@ -86,3 +89,36 @@ resource "aws_iam_instance_profile" "node" {
   name = "terraform-eks-node"
   role = "${aws_iam_role.tf-eks-node.name}"
 }
+
+#   BEGING  cluster default roles for day-to-day kubectl operations
+# The following are the default roles to grant others access to the cluster
+# These roles must be associated with the proper EKS k8s role and rolebinding
+# Note that these roles do not have any access to AWS Console itself. 
+# The roles are meant for kubectl operations against cluster.
+# We also want this role specific for RBAC permissions to the k8s CLI
+
+resource "aws_iam_role" "tf-eks-cluster-root-masters" {
+  name = "${var.cluster_name}-${data.aws_region.current.name}-cluster-root-masters"
+  description = "This is the ROOT - super-user access to perform any action on any resource. It will give full control over everything"
+
+# Note that this role does not have any permissions outside of the role policy
+  assume_role_policy = <<POLICY
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "eks.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+POLICY
+  tags = {
+    Name = "${var.cluster_name}-${data.aws_region.current.name}-cluster-root-masters"
+  }
+}
+
+# END cluster default roles for day-to-day kubectl operations

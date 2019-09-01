@@ -47,12 +47,9 @@ data:
       groups:
         - system:bootstrappers
         - system:nodes
+    - rolearn: ${aws_iam_role.tf-eks-cluster-root-masters.arn}
+      groups:
+        - system:masters
 CONFIGMAPAWSAUTH
 }
 
-output "config_map_aws_auth" {
-  value = "${local.config_map_aws_auth}"
-  depends_on = [
-    "aws_eks_cluster.tf_eks"
-  ]
-}
