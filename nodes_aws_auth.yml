@@ -1,0 +1,21 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aws-auth
+  namespace: kube-system
+data:
+  mapRoles: |
+    - rolearn: arn:aws:iam::1111222233333:role/terraform-eks-tf-eks-node
+      username: system:node:{{EC2PrivateDNSName}}
+      groups:
+        - system:bootstrappers
+        - system:nodes
+    - rolearn: arn:aws:iam::1111222233333:role/eksroot
+      username: eks
+      groups:
+        - system:masters
+    - rolearn: arn:aws:iam::1111222233333:role/brightloom-us-west-2-cluster-root-masters
+      groups:
+        - system:masters
+
