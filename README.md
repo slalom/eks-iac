@@ -69,6 +69,9 @@ What type of IAM Role permissions will the actual POD based workloads need? They
 Should the EKS Worker EBS volumes be encrypted?  
 Should the EKS Cluster Endpoint be private or public?  
 
+# Troubleshooting
+* Run `aws sts get-caller-identity` to see who you are logged in as  
+* To Assume a role - `aws sts assume-role --role-arn arn:aws:iam::Account_ID:role/ROLE_NAME --role-session-name eks-my-session`  
 
 # Sample terraform.tfvars
 ## Create terraform.tfvars in your root folder with these variables
