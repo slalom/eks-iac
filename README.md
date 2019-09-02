@@ -42,6 +42,10 @@ Run
 
 You'll see the nodes come online
 
+### Assuming Role For admin (root) team members that did not create the cluster
+After the cluster creator has done the steps above, other root/admin team members can configure their local desktop 
+by following docs/AssumingEKSRootRole.me instructions
+
 # AWS Systems Manager - Session Manager
 In order to manage and troubleshoot issues with the EKS worker nodes, a bastion host is needed.  AWS Systems Manager comes with a feature under the `Session Manager` that allows you to SSH into any EC2 instance that you configured with the SSM manager.
 
@@ -72,6 +76,8 @@ Should the EKS Cluster Endpoint be private or public?
 # Troubleshooting
 * Run `aws sts get-caller-identity` to see who you are logged in as  
 * To Assume a role - `aws sts assume-role --role-arn arn:aws:iam::Account_ID:role/ROLE_NAME --role-session-name eks-my-session`  
+* If you're authentication is not working, check to see if aws-auth config map is correct. `kubectl -n kube-system get cm aws-auth -o yaml`  
+
 
 # Sample terraform.tfvars
 ## Create terraform.tfvars in your root folder with these variables
