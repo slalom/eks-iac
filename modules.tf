@@ -24,6 +24,7 @@ module "eks" {
   eks_nodes_desired_capacity = "${var.eks_nodes_desired_capacity}"
   eks_nodes_maximum          = "${var.eks_nodes_maximum}"
   eks_nodes_minimum          = "${var.eks_nodes_minimum}"
+  eks_system_master_users    = "${var.eks_system_master_users}"
 
   // inputs from modules
   vpc_id             = "${module.network.vpc_id}"
