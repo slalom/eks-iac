@@ -121,5 +121,5 @@ kms_key_id              = "arn:aws:kms:_some_region_:_some_aws_account_:key/_the
 eks_nodes_desired_capacity = 3
 eks_nodes_maximum          = 4
 eks_nodes_minimum          = 1
-eks_system_master_users    = ["amazon.07.2019@gmail.com", "user1"]
+eks_system_master_users    = ["amazon.07.2019", "user1"]
 ```
