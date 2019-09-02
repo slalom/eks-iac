@@ -146,3 +146,8 @@ variable "eks_nodes_maximum" {
 variable "eks_nodes_minimum" {
   description = "This is the desired autoscaling group minimum number of worker nodes"
 }
+
+variable "eks_system_master_users" {
+  description = "By default, only cluster creator has system:masters role. AWS usernames in this list will also be added to that k8s role"
+  type        = "list"
+}
