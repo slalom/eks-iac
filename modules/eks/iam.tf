@@ -1,5 +1,7 @@
 data "aws_region" "current" {}
 
+data "aws_caller_identity" "current" {}
+
 # Setup for IAM role needed to setup an EKS cluster
 resource "aws_iam_role" "tf-eks-master" {
   name = "${var.cluster_name}-eks-master-cluster"
@@ -101,7 +103,7 @@ resource "aws_iam_role" "tf-eks-cluster-root-masters" {
   name = "${var.cluster_name}-${data.aws_region.current.name}-cluster-root-masters"
   description = "This is the ROOT - super-user access to perform any action on any resource. It will give full control over everything"
 
-# Note that this role does not have any permissions outside of the role policy
+# Note that this role does not have any permissions outside of the assume role policy
   assume_role_policy = <<POLICY
 {
   "Version": "2012-10-17",
@@ -109,7 +111,8 @@ resource "aws_iam_role" "tf-eks-cluster-root-masters" {
     {
       "Effect": "Allow",
       "Principal": {
-        "Service": "eks.amazonaws.com"
+        "Service": "eks.amazonaws.com",
+         "AWS" : "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
       },
       "Action": "sts:AssumeRole"
     }
