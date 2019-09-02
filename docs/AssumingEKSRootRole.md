@@ -4,6 +4,12 @@
 
 Otherwise, you'll get `Access denied` or `No resources found` or `You need to login to the server`
 
+# Tooling pre-reqs
+## You must have the following installed
+1. aws CLI (python3.7 and pip3)
+2. aws-aim-authenticator (https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html)
+3. kubectl (https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+
 # Exporing Your Keys
 Open a command prompt and export your keys as follows:
 export AWS_ACCESS_KEY_ID="{enter your value here}"
@@ -11,6 +17,9 @@ export AWS_SECRET_ACCESS_KEY="{enter your value here}"
 export AWS_DEFAULT_REGION="us-west-2" 
 
 ## Download your EKS config
+This step assumes you have been given acces to a EKS:* role and that you actually have access to EKS.  
+By default, terraform creates a {cluster-name}-{aws-region}-cluster-root-masters role.  You should have acces to assume this role.
+
 Run
 `aws eks update-kubeconfig --name your-cluster-name --role-arn arn:aws:iam::111122223333:role/your-role-name`
 
