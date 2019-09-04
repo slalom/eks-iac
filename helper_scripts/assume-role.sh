@@ -4,7 +4,7 @@ echo "Assuming role and getting the session"
 #       UPDATE your Account NUMBER BELOW BAD - 111122223333
 #                    ROLE NAME
 #                    ROLE SESSION NAME as needed.
-aws sts assume-role --role-arn arn:aws:iam::111122223333:role/brightloom-us-west-2-cluster-root-masters --role-session-name eks-admin > assume-role-output.json
+aws sts assume-role --role-arn arn:aws:iam::111122223333:role/slalom-us-west-2-cluster-root-masters --role-session-name eks-admin > assume-role-output.json
 echo "Setting the AWS_ACCESS_KEY_ID to env var"
 export AWS_ACCESS_KEY_ID=$(jq -r '.Credentials.AccessKeyId' assume-role-output.json)
 echo "Setting the AWS_SECRET_ACCESS_KEY to env var"

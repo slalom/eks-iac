@@ -3,24 +3,24 @@ clusters:
 - cluster:
     certificate-authority-data: REDACTED
     server: https://SOME_URL.sk1.us-west-2.eks.amazonaws.com
-  name: arn:aws:eks:us-west-2:111122223333:cluster/brightloom-cluster
+  name: arn:aws:eks:us-west-2:111122223333:cluster/alalom-cluster
 contexts:
 - context:
-    cluster: arn:aws:eks:us-west-2:111122223333:cluster/brightloom-cluster
-    user: arn:aws:eks:us-west-2:111122223333:cluster/brightloom-cluster
-  name: arn:aws:eks:us-west-2:111122223333:cluster/brightloom-cluster
-current-context: arn:aws:eks:us-west-2:111122223333:cluster/brightloom-cluster
+    cluster: arn:aws:eks:us-west-2:111122223333:cluster/slalom-cluster
+    user: arn:aws:eks:us-west-2:111122223333:cluster/slalom-cluster
+  name: arn:aws:eks:us-west-2:111122223333:cluster/slalom-cluster
+current-context: arn:aws:eks:us-west-2:111122223333:cluster/slalom-cluster
 kind: Config
 preferences: {}
 users:
-- name: arn:aws:eks:us-west-2:111122223333:cluster/brightloom-cluster
+- name: arn:aws:eks:us-west-2:111122223333:cluster/slalom-cluster
   user:
     exec:
       apiVersion: client.authentication.k8s.io/v1alpha1
       args:
       - token
       - -i
-      - brightloom-cluster
+      - slalom-cluster
       - "-r"
-      - "arn:aws:iam::111122223333:role/brightloom-us-west-2-cluster-root-masters"
+      - "arn:aws:iam::111122223333:role/slalom-us-west-2-cluster-root-masters"
       command: aws-iam-authenticator

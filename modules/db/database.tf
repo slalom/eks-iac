@@ -6,7 +6,7 @@ data "aws_availability_zones" "available" {}
 # availability_zone = "${data.aws_availability_zones.available.names[count.index]}"
 # availability_zones = ["${slice(data.aws_availability_zones.available.names, 0, 2)}"]
 
-resource "aws_rds_cluster" "brightloom_db_cluster" {
+resource "aws_rds_cluster" "slalom_db_cluster" {
   cluster_identifier      = "${var.cluster_name}"
   engine                  = "${var.aurora_db_engine}"
   database_name           = "${var.aurora_db_name}"
@@ -33,7 +33,7 @@ resource "aws_rds_cluster" "brightloom_db_cluster" {
 resource "aws_rds_cluster_instance" "rds_instance" {
   count                = 2
   identifier           = "instance-0${count.index + 1}"
-  cluster_identifier   = "${aws_rds_cluster.brightloom_db_cluster.id}"
+  cluster_identifier   = "${aws_rds_cluster.slalom_db_cluster.id}"
   instance_class       = "${var.aurora_db_instance_class}"
   db_subnet_group_name = "${aws_db_subnet_group.rds_subnet_group.name}"
   engine = "${var.aurora_db_engine}"

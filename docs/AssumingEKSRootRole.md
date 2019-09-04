@@ -29,20 +29,20 @@ Your cluster creator admin will provide you this role arn.
 Run
 `aws eks update-kubeconfig --name your-cluster-name --role-arn arn:aws:iam::111122223333:role/your-role-name`
 
-Examples below use `brightloom-cluster` as the cluster-name.
+Examples below use `slalom-cluster` as the cluster-name.
 ## Then Update your ~/.kube/config
 1. Edit `~/.kube/config` with your favorate text editor
 2. Find the like that looks like the one below for your cluster
 
 ```
-- name: arn:aws:eks:us-west-2:11112222333:cluster/brightloom-cluster
+- name: arn:aws:eks:us-west-2:11112222333:cluster/slalom-cluster
   user:
     exec:
       apiVersion: client.authentication.k8s.io/v1alpha1
       args:
       - token
       - -i
-      - brightloom-cluster
+      - slalom-cluster
       - "-r"
       - "arn:aws:iam::XXXX:role/{your-role-name-here}"
       command: aws-iam-authenticator
@@ -55,7 +55,7 @@ Examples below use `brightloom-cluster` as the cluster-name.
 In this example, the role name will be the one from your cluster (ex: mi-cluster-us-west-2-cluster-root-masters)
 
 Run
-`aws-iam-authenticator token -i brightloom-cluster -r arn:aws:iam::11112222333:role/your-role-name`
+`aws-iam-authenticator token -i slalom-cluster -r arn:aws:iam::11112222333:role/your-role-name`
 
 ## You're in
 run
